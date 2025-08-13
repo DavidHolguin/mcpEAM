@@ -10,6 +10,11 @@ with_cors(app)
 async def root():
     return {"name": "MCP Server", "status": "ok"}
 
+@app.post("/")
+async def root_post():
+    # Some scanners/integrations may POST to root; guide them to /mcp
+    return {"message": "Use POST /mcp with JSON-RPC 2.0 (methods: tools/list, tools/call)"}
+
 @app.get("/healthz")
 async def healthz():
     return {"status": "ok"}
