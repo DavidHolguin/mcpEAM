@@ -6,6 +6,10 @@ app = FastAPI(title="MCP Server", version="1.0.0")
 
 with_cors(app)
 
+@app.get("/")
+async def root():
+    return {"name": "MCP Server", "status": "ok"}
+
 @app.get("/healthz")
 async def healthz():
     return {"status": "ok"}
