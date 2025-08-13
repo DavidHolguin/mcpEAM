@@ -1,0 +1,138 @@
+{
+  "tools": [
+    {
+      "name": "supabase/query",
+      "description": "Query rows from a Supabase table with optional filters, projection, ordering and pagination.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "table_name": { "type": "string" },
+          "filters": { "type": "object", "description": "Equality filters {column: value}" },
+          "columns": { "type": "array", "items": { "type": "string" } },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 1000, "default": 100 },
+          "offset": { "type": "integer", "minimum": 0, "default": 0 },
+          "order_by": { "type": "string" },
+          "ascending": { "type": "boolean", "default": true }
+        },
+        "required": ["table_name"]
+      }
+    },
+    {
+      "name": "supabase/insert",
+      "description": "Insert one or multiple rows into a table.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "table_name": { "type": "string" },
+          "data": { "type": "array", "items": { "type": "object" } }
+        },
+        "required": ["table_name", "data"]
+      }
+    },
+    {
+      "name": "supabase/update",
+      "description": "Update rows in a table matching equality filters.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "table_name": { "type": "string" },
+          "filters": { "type": "object" },
+          "data": { "type": "object" }
+        },
+        "required": ["table_name", "filters", "data"]
+      }
+    },
+    {
+      "name": "supabase/delete",
+      "description": "Delete rows in a table matching equality filters.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "table_name": { "type": "string" },
+          "filters": { "type": "object" }
+        },
+        "required": ["table_name", "filters"]
+      }
+    },
+    {
+      "name": "supabase/uploadFile",
+      "description": "Upload a file to Supabase Storage and return a signed URL.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "bucket": { "type": "string" },
+          "path": { "type": "string" },
+          "content_base64": { "type": "string" },
+          "content_type": { "type": "string", "default": "application/octet-stream" }
+        },
+        "required": ["bucket", "path", "content_base64"]
+      }
+    },
+    {
+      "name": "supabase/downloadFile",
+      "description": "Return a signed URL to download a file.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "bucket": { "type": "string" },
+          "path": { "type": "string" },
+          "expires": { "type": "integer", "default": 3600 }
+        },
+        "required": ["bucket", "path"]
+      }
+    },
+    {
+      "name": "supabase/listFiles",
+      "description": "List files under a prefix.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "bucket": { "type": "string" },
+          "prefix": { "type": "string", "default": "" },
+          "limit": { "type": "integer", "default": 100 }
+        },
+        "required": ["bucket"]
+      }
+    },
+    {
+      "name": "supabase/vectorUpsert",
+      "description": "Insert or update an embedding in pgvector store.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "namespace": { "type": "string" },
+          "ref": { "type": "string", "description": "External reference id/url" },
+          "embedding": { "type": "array", "items": { "type": "number" } },
+          "metadata": { "type": "object" }
+        },
+        "required": ["namespace", "ref", "embedding"]
+      }
+    },
+    {
+      "name": "supabase/vectorQuery",
+      "description": "Find nearest neighbors by cosine distance in a namespace.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "namespace": { "type": "string" },
+          "embedding": { "type": "array", "items": { "type": "number" } },
+          "top_k": { "type": "integer", "default": 5 }
+        },
+        "required": ["namespace", "embedding"]
+      }
+    },
+    {
+      "name": "n8n/triggerWebhook",
+      "description": "Invoke an n8n workflow via public webhook.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "webhook_path": { "type": "string", "description": "Path segment appended to N8N_WEBHOOK_BASE" },
+          "data": { "type": "object", "default": {} },
+          "headers": { "type": "object", "description": "Optional extra headers" }
+        },
+        "required": ["webhook_path"]
+      }
+    }
+  ]
+}

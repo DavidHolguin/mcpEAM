@@ -1,0 +1,16 @@
+# Ignore local artifacts
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+*.sqlite
+node_modules/
+.git/
+.gitignore
+README.md
+migrations/*.tmp
+# You can ignore .env for image build context; docker-compose still uses it at runtime
+.env
+.env.*
